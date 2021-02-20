@@ -1,16 +1,17 @@
+#
 # Copyright (C) 2008-2019 Jerrykuku
-# Copyright (C) 2019-2020 Lienol <lawlienol@gmail.com>
 #
 # This is free software, licensed under the Apache License, Version 2.0 .
 #
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=Argon Mod Theme
+LUCI_TITLE:=Argon Theme
 LUCI_DEPENDS:=
-PKG_VERSION:=1.5
-PKG_RELEASE:=08-20191221
-
+PKG_VERSION:=2.2.6
+PKG_RELEASE:=20210215
+PKG_SOURCE_URL:=https://github.com/jerrykuku/luci-theme-argon.git
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
