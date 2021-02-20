@@ -11,7 +11,7 @@ LUCI_DEPENDS:=
 PKG_VERSION:=2.2.6
 PKG_RELEASE:=20210215
 PKG_SOURCE_URL:=https://github.com/jerrykuku/luci-theme-argon.git
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=luci-theme-argon.tar.gz
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
