@@ -1,7 +1,0 @@
-#!/bin/sh
-uci batch <<-EOF
-	set luci.themes.rubik=/luci-static/rubik
-	set luci.main.mediaurlbase=/luci-static/rubik
-	commit luci
-EOF
-exit 0
