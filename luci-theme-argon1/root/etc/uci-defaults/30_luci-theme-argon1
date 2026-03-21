@@ -1,7 +1,0 @@
-#!/bin/sh
-
-/sbin/uci set luci.themes.Argon1='/luci-static/argon1'
-/sbin/uci set luci.main.mediaurlbase='/luci-static/argon1'
-/sbin/uci commit luci
-
-exit 0
