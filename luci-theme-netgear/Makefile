@@ -10,6 +10,9 @@ LUCI_DEPENDS:=
 LUCI_PKGARCH:=all
 PKG_RELEASE:=3
 
+PKG_VERSION:=26.034.10143
+PKG_RELEASE:=1
+
 include ../../luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
