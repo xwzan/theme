@@ -13,12 +13,10 @@ PKG_RELEASE:=2
 PKG_LICENSE:=Apache-2.0
 PKG_MAINTAINER:=Your Name <your@email.com>
 
-# 明确指定 LuCI 类型
 LUCI_TYPE:=theme
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
-# 添加自定义安装后操作
 define Package/luci-theme-netgear/postinst
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
@@ -26,6 +24,3 @@ define Package/luci-theme-netgear/postinst
 	exit 0
 }
 endef
-
-# 调用构建
-# call BuildPackage - OpenWrt buildroot signature
