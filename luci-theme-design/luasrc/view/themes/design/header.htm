@@ -33,9 +33,8 @@
 	local uci = require 'luci.model.uci'.cursor()
 	local fs  = require "nixio.fs"
 
-	local boardinfo = util.ubus("system", "board")
-	local boardinfo={}
-	boardinfo.hostname=sys.hostname()
+	local boardinfo = util.ubus("system", "board") or {}
+	boardinfo.hostname = sys.hostname()
 	
 	local request  = disp.context.path
 	local request2 = disp.context.request
@@ -324,5 +323,58 @@
     <script>
             // thanks for Jo-Philipp Wich <jow@openwrt.org>
             var luciLocation = <%= luci.http.write_json(luci.dispatcher.context.path) %>;
-    </script>  
+    </script>
     <script src="<%=media%>/js/script.js?v=<%= ver.luciversion %>"></script>
+
+    <script>
+        // 移动端菜单切换（使用原生 JS 辅助，避免 jQuery 动画冲突）
+        (function() {
+            var showSideBtn = document.querySelector('.showSide');
+            var mainLeft = document.querySelector('.main-left');
+            var darkMask = document.querySelector('.darkMask');
+            var isMenuOpen = false;
+
+            function closeMenu() {
+                if (mainLeft) mainLeft.classList.remove('show');
+                if (darkMask) darkMask.classList.remove('show');
+                isMenuOpen = false;
+                // 恢复 header 阴影和品牌样式（原 script.js 中做的）
+                var header = document.querySelector('header');
+                if (header) header.style.boxShadow = '0 2px 4px rgba(0,0,0,0.08)';
+                var brand = document.querySelector('header>.container>.brand');
+                if (brand) brand.style.padding = '0 4.5rem';
+            }
+
+            function openMenu() {
+                if (mainLeft) mainLeft.classList.add('show');
+                if (darkMask) darkMask.classList.add('show');
+                isMenuOpen = true;
+                var header = document.querySelector('header');
+                if (header) header.style.boxShadow = '18rem 2px 4px rgba(0,0,0,0.08)';
+                var brand = document.querySelector('header>.container>.brand');
+                if (brand) brand.style.padding = '0rem';
+            }
+
+            if (showSideBtn) {
+                showSideBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (isMenuOpen) closeMenu();
+                    else openMenu();
+                });
+            }
+            if (darkMask) darkMask.addEventListener('click', closeMenu);
+
+            // 窗口大小改变时，如果宽度>992则关闭菜单并恢复样式
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 992) {
+                    if (mainLeft && mainLeft.classList.contains('show')) closeMenu();
+                    if (mainLeft) mainLeft.style.width = '';
+                    if (darkMask) darkMask.style.display = 'none';
+                } else {
+                    if (darkMask) darkMask.style.display = 'none';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
