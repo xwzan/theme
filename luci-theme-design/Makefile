@@ -6,9 +6,18 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Design Theme
-LUCI_DEPENDS:=
+LUCI_DEPENDS:=+luci-base
+LUCI_PKGARCH:=all
+
 PKG_VERSION:=5.7.6-20250712
+PKG_RELEASE:=2
 
 include ../../luci.mk
 
-# call BuildPackage - OpenWrt buildroot signature
+define Package/luci-theme-design/postinst
+#!/bin/sh
+[ -n "$${IPKG_INSTROOT}" ] || {
+	rm -rf /tmp/luci-indexcache
+	exit 0
+}
+endef
